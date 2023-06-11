@@ -1,12 +1,40 @@
-
 <?php
-// Debut de la session
 session_start();
 
-// Reste du code de la page
-// ...
-?>
+// Vérifier si l'utilisateur est connecté
+if (!isset($_SESSION['mail']) || !isset($_SESSION['URL'])) {
+    // Si l'utilisateur n'est pas connecté, rediriger vers la page de connexion
+    header("Location: connexion.php");
+    exit;
+}
 
+// Vérifier si le formulaire est soumis
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Récupérer les données soumises du formulaire
+    $civilite = $_POST['Civilité'];
+    $categorie = $_POST['Catégorie'];
+    $nom = $_POST['nom'];
+    $prenom = $_POST['prenom'];
+    $mail = $_POST['mail'];
+    $tel = $_POST['tel'];
+    $datenaissance = $_POST['datenaissance'];
+    $ville = $_POST['Ville'];
+
+    // Mettre à jour les valeurs dans les variables de session
+    $_SESSION['Civilité'] = $civilite;
+    $_SESSION['Catégorie'] = $categorie;
+    $_SESSION['nom'] = $nom;
+    $_SESSION['prenom'] = $prenom;
+    $_SESSION['mail'] = $mail;
+    $_SESSION['tel'] = $tel;
+    $_SESSION['datenaissance'] = $datenaissance;
+    $_SESSION['Ville'] = $ville;
+
+    // Rediriger vers la page connected.php après la mise à jour
+    header("Location: connected.php");
+    exit;
+}
+?>
 
 
 <!DOCTYPE html>
@@ -14,8 +42,8 @@ session_start();
 <head>
     <title>Modifier les données</title>
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/modifier.css">
     <link rel="stylesheet" href="./css/bienvenue.css">
+    <link rel="stylesheet" href="./css/modifier.css">
 
 </head>
 <body>
@@ -41,27 +69,26 @@ session_start();
     <main>
         <h1>Modifier les données</h1>
         <form method="post" action="modifier.php"class="modifier">
-            <label>Civilité</label>
-            <select name="Civilité" id="Civilité">
-                <option value="Homme" <?php if($_SESSION['Civilité'] === 'Homme') echo 'selected'; ?>>Homme</option>
-                <option value="Femme" <?php if($_SESSION['Civilité'] === 'Femme') echo 'selected'; ?>>Femme</option>
-            </select>
+        <label>Civilité</label>
+<select name="Civilité" id="Civilité">
+    <option value="Homme" <?php if($_SESSION['Civilité'] === 'Homme') echo 'selected'; ?>>Homme</option>
+    <option value="Femme" <?php if($_SESSION['Civilité'] === 'Femme') echo 'selected'; ?>>Femme</option>
+</select>
 
-            <label>Catégorie</label>
-            <select name="Catégorie" id="Catégorie">
-                <option value="Client" <?php if($_SESSION['Catégorie'] === 'Client') echo 'selected'; ?>>Client</option>
-                <option value="admin" <?php if($_SESSION['Catégorie'] === 'admin') echo 'selected'; ?>>admin</option>
-                <option value="Technique" <?php if($_SESSION['Catégorie'] === 'Technique') echo 'selected'; ?>>Technique</option>
-                <option value="Marketing" <?php if($_SESSION['Catégorie'] === 'Marketing') echo 'selected'; ?>>Marketing</option>
-                <option value="Manager" <?php if($_SESSION['Catégorie'] === 'Manager') echo 'selected'; ?>>Manager</option>
-            </select>
+<label>Catégorie</label>
+<select name="Catégorie" id="Catégorie">
+    <option value="Client" <?php if($_SESSION['Catégorie'] === 'Client') echo 'selected'; ?>>Client</option>
+    <option value="admin" <?php if($_SESSION['Catégorie'] === 'admin') echo 'selected'; ?>>admin</option>
+    <option value="Technique" <?php if($_SESSION['Catégorie'] === 'Technique') echo 'selected'; ?>>Technique</option>
+    <option value="Marketing" <?php if($_SESSION['Catégorie'] === 'Marketing') echo 'selected'; ?>>Marketing</option>
+    <option value="Manager" <?php if($_SESSION['Catégorie'] === 'Manager') echo 'selected'; ?>>Manager</option>
+</select>
 
-            <label>Nom</label>
-            <input type="text" name="nom" id="nom" value="<?php echo $_SESSION['nom']; ?>" aria-labelledby="Nom"  id="Nom" placeholder="text" aria-required="true">
+<label>Nom</label>
+<input type="text" name="nom" value="<?php echo $_SESSION['nom']; ?>" aria-labelledby="Nom"  id="Nom" placeholder="Nom" aria-required="true">
 
-            <label>Prénom</label>
-            <input type="text" name="prenom" value="<?php echo $_SESSION['prenom']; ?>" aria-labelledby="Prénom"  id="Prénom" placeholder="text" aria-required="true">
-
+<label>Prénom</label>
+<input type="text" name="prenom" value="<?php echo $_SESSION['prenom']; ?>" aria-labelledby="Prénom"  id="Prénom" placeholder="Prénom" aria-required="true">
             <label>Mail ou login</label>
             <input type="email" name="mail" value="<?php echo $_SESSION['mail']; ?>" aria-labelledby="email"  id="email" placeholder="Mail Utilisateur" aria-required="true" autofocus>
 
