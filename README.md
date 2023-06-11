@@ -19,5 +19,5 @@ PHP 8.0
 
 
 Installation:
-Cloner le repertoire 
-lancer le serveur : http://localhost:8888//
+##Cloner le repertoire 
+##lancer le serveur : http://localhost:8888//
