@@ -14,7 +14,13 @@ Création et modélisation de l’interface graphique et la rendre dynamique
 *HTML
 *CSS
 
-[cliquez sur le lien](https://rahmahamdi.github.io/projet_M2L3/)
+Prérequis: 
+PHP 8.0
+
+
+Installation:
+Cloner le repertoire 
+lancer le serveur : http://localhost:8888//
 
 
 
